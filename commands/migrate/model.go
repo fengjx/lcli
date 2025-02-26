@@ -1,5 +1,10 @@
 package migrate
 
+const (
+	// DefaultAdminEndpoint admin endpoint 默认输出目录
+	DefaultAdminEndpoint = "admin"
+)
+
 // Config config file
 type Config struct {
 	DS     *DS           `yaml:"ds"`
@@ -17,6 +22,7 @@ type TableConfig struct {
 	Module          string `yaml:"module"`
 	SimpleName      string `yaml:"simple-name"`
 	UseAdmin        *bool  `yaml:"use-admin"`
+	AdminEndpoint   string `yaml:"admin-endpoint"`
 	Var             Var    `yaml:"var"`
 	SimpleNameLower string `-`
 }
