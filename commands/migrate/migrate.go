@@ -240,6 +240,9 @@ func newGen(tmplDir string, eFS *embed.FS, config *Config, table *Table) *gen {
 	if tableOpt.SimpleName == "" {
 		tableOpt.SimpleName = table.Name
 	}
+	if tableOpt.AdminEndpoint == "" {
+		tableOpt.AdminEndpoint = DefaultAdminEndpoint
+	}
 	tableOpt.SimpleNameLower = kit.ToLowerAndTrim(tableOpt.SimpleName)
 	tableOpt.SimpleName = kit.SnakeCase(tableOpt.SimpleName)
 	attr := map[string]any{
@@ -274,7 +277,7 @@ func newGen(tmplDir string, eFS *embed.FS, config *Config, table *Table) *gen {
 	if !*tableOpt.UseAdmin {
 		// 排除admin目录
 		fg.EntryFilter = func(ctx context.Context, entry os.DirEntry) bool {
-			adminDirs := []string{"static", "endpoint"}
+			adminDirs := []string{"static", "endpoint", tableOpt.AdminEndpoint}
 			return kit.ContainsString(adminDirs, entry.Name())
 		}
 	}
